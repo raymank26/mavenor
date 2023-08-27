@@ -6,17 +6,43 @@ import java.io.FileWriter
 
 private val log = LoggerFactory.getLogger(App::class.java)
 
-object App {
 
-    @JvmStatic
-    fun main(args: Array<String>) {
-        loadEnvGCloudData()
-        val gcpBucketName = readEnv("GOOGLE_CLOUD_STORAGE_BUCKET_NAME")
-        val remoteStorage = RemoteStorage(gcpBucketName)
+class App(private val externalDepsFactory: ExternalDepsFactory) {
 
-        val app = Javalin.create(/*config*/)
-            .before {
-                log.info("{} - {}", it.method(), it.path())
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            App(externalDepsFactory = ExternalDepsFactory()).start()
+        }
+    }
+
+    fun start() {
+        val env = externalDepsFactory.getEnv()
+        loadEnvGCloudData(env)
+        val gcpBucketName = readEnv(env, "GOOGLE_CLOUD_STORAGE_BUCKET_NAME")
+        val username = readEnv(env, "USERNAME")
+        val password = readEnv(env, "PASSWORD")
+        val remoteStorage = RemoteStorage(gcpBucketName, externalDepsFactory.gcpStorage())
+
+        Javalin.create(/*config*/)
+//            .before {
+//                log.info(it.headerMap().toString())
+//                log.info("{} - {}", it.method(), it.path())
+//            }
+            .before { ctx ->
+                val basicAuthCredentials = ctx.basicAuthCredentials() ?: throw NotAuthorizedException()
+                if (basicAuthCredentials.username != username || basicAuthCredentials.password != password) {
+                    throw NotAuthorizedException()
+                }
+            }
+            .exception(ObjectNotFound::class.java) { e, ctx ->
+                log.debug("Not found", e)
+                ctx.status(404)
+            }
+            .exception(NotAuthorizedException::class.java) { _, ctx ->
+                ctx.status(401)
+                ctx.header("WWW-Authenticate", "Basic")
             }
             .put("maven/*") { ctx ->
                 val bodyInputStream = ctx.bodyInputStream()
@@ -33,11 +59,11 @@ object App {
     }
 }
 
-fun loadEnvGCloudData() {
-    val serviceAccountJson = System.getenv()["GOOGLE_SERVICE_ACCOUNT_KEY"]
+fun loadEnvGCloudData(env: Map<String, String>) {
+    val serviceAccountJson = env["GOOGLE_SERVICE_ACCOUNT_KEY"]
     if (serviceAccountJson != null) {
         log.info("Loading key of service account into file")
-        val serviceAccountFile = System.getenv()["GOOGLE_APPLICATION_CREDENTIALS"]!!
+        val serviceAccountFile = env["GOOGLE_APPLICATION_CREDENTIALS"]!!
         FileWriter(serviceAccountFile).use {
             it.write(serviceAccountJson)
         }
@@ -45,6 +71,8 @@ fun loadEnvGCloudData() {
     }
 }
 
-fun readEnv(name: String): String {
-    return System.getenv()[name] ?: error("No env variable found, key = $name")
+fun readEnv(env: Map<String, String>, name: String): String {
+    return env[name] ?: error("No env variable found, key = $name")
 }
+
+class NotAuthorizedException : Exception()
