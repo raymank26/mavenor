@@ -27,8 +27,8 @@ After the launch, the app will listen on `8080` port.
 publishing {
     repositories {
         maven {
-            url "http://localhost:8080/maven"
-            allowInsecureProtocol true // <- only for testing
+            url "http://localhost:8080/maven" // replace with real url
+            allowInsecureProtocol true // <- only for HTTP testing
         }
     }
 }
@@ -37,8 +37,8 @@ publishing {
 repositories {
     mavenCentral()
     maven {
-        url = uri("http://localhost:8080/maven")
-        setAllowInsecureProtocol(true) // <- only for testing
+        url = uri("http://localhost:8080/maven") // replace with real url
+        setAllowInsecureProtocol(true) // <- only for HTTP testing
         credentials {
             username = "<username>"
             password = "<password>"
