@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f30aa60-302e-469f-aadc-92bae02e863f" name="Changes" comment="Init implementation.">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/ExternalDepsFactory.kt" afterDir="false" />
+    <list default="true" id="4f30aa60-302e-469f-aadc-92bae02e863f" name="Changes" comment="Fixes.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/App.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/RemoteStorage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/RemoteStorage.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +22,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand />
@@ -42,6 +44,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 7
@@ -71,10 +76,34 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Kotlin.App">
+    <configuration name="mavenor [dockerBuildImage]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dockerBuildImage" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="App" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <envs>
         <env name="GOOGLE_CLOUD_STORAGE_BUCKET_NAME" value="ql-maven-artifacts" />
+        <env name="USERNAME" value="sfdlkjsdf" />
+        <env name="PASSWORD" value="fsdoijsdf" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.raymank26.mavenor.App" />
       <module name="mavenor.main" />
@@ -83,8 +112,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Gradle.mavenor [dockerBuildImage]" />
+      <item itemvalue="Kotlin.App" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.mavenor [dockerBuildImage]" />
         <item itemvalue="Kotlin.App" />
       </list>
     </recent_temporary>
@@ -97,7 +131,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1693164227428</updated>
-      <workItem from="1693164228424" duration="6166000" />
+      <workItem from="1693164228424" duration="8457000" />
     </task>
     <task id="LOCAL-00001" summary="Init implementation.">
       <option name="closed" value="true" />
@@ -107,7 +141,39 @@
       <option name="project" value="LOCAL" />
       <updated>1693167819070</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fixes.">
+      <option name="closed" value="true" />
+      <created>1693170633863</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1693170633863</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fixes.">
+      <option name="closed" value="true" />
+      <created>1693193120052</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1693193120052</updated>
+    </task>
+    <task id="LOCAL-00004" summary="README.md added.">
+      <option name="closed" value="true" />
+      <created>1693193618937</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1693193618937</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Fixes.">
+      <option name="closed" value="true" />
+      <created>1693193778388</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1693193778388</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -117,7 +183,9 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Init implementation." />
-    <option name="LAST_COMMIT_MESSAGE" value="Init implementation." />
+    <MESSAGE value="README.md added." />
+    <MESSAGE value="Fixes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixes." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

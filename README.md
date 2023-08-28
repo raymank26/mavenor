@@ -11,6 +11,8 @@ Use the following command to build an image:
 docker run mavenor:latest # or docker run mavenor:<version>. Also pass env variables listed below.
 ```
 
+After the launch, the app will listen on `8080` port.
+
 **Environment variables:**
 
 1. `GOOGLE_SERVICE_ACCOUNT_KEY` – This variable holds the JSON key file of a GCP service account.
@@ -18,3 +20,29 @@ docker run mavenor:latest # or docker run mavenor:<version>. Also pass env varia
 3. `GOOGLE_CLOUD_STORAGE_BUCKET_NAME` – This variable specifies the bucket name for Google Cloud Storage.
 4. `USERNAME` – This variable is used for the Maven username.
 5. `PASSWORD` – This variable is used for the Maven password.
+
+# Maven configuration
+
+```
+publishing {
+    repositories {
+        maven {
+            url "http://localhost:8080/maven"
+            allowInsecureProtocol true // <- only for testing
+        }
+    }
+}
+
+// and for consumption
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("http://localhost:8080/maven")
+        setAllowInsecureProtocol(true) // <- only for testing
+        credentials {
+            username = "<username>"
+            password = "<password>"
+        }
+    }
+}
+```

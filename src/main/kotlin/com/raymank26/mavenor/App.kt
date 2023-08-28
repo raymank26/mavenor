@@ -55,7 +55,7 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
             .get("/healthcheck") {
                 it.result("ok")
             }
-            .start(7070)
+            .start(8080)
     }
 }
 
