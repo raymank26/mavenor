@@ -9,6 +9,8 @@ private val log = LoggerFactory.getLogger(App::class.java)
 
 class App(private val externalDepsFactory: ExternalDepsFactory) {
 
+    private lateinit var javalin: Javalin
+
     companion object {
 
         @JvmStatic
@@ -25,7 +27,7 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
         val password = readEnv(env, "PASSWORD")
         val remoteStorage = RemoteStorage(gcpBucketName, externalDepsFactory.gcpStorage())
 
-        Javalin.create(/*config*/)
+        javalin = Javalin.create(/*config*/)
 //            .before {
 //                log.info(it.headerMap().toString())
 //                log.info("{} - {}", it.method(), it.path())
@@ -56,6 +58,10 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
                 it.result("ok")
             }
             .start(8080)
+    }
+
+    fun stop() {
+        javalin.stop()
     }
 }
 

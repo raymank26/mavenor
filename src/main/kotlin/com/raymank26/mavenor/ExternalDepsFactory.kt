@@ -5,11 +5,11 @@ import com.google.cloud.storage.StorageOptions
 
 open class ExternalDepsFactory {
 
-    fun gcpStorage(): Storage {
+    open fun gcpStorage(): Storage {
         return StorageOptions.getDefaultInstance().getService()
     }
 
-    fun getEnv(): Map<String, String> {
+    open fun getEnv(): Map<String, String> {
         return System.getenv()
     }
 }
