@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.mavenor"
-version = findProperty("version") ?: "1.0-SNAPSHOT"
+version = findProperty("version")?.takeIf { it != "unspecified" } ?: "1.0-SNAPSHOT"
 
 application {
     mainClass = "com.raymank26.mavenor.App"
