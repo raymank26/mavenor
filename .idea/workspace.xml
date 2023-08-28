@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f30aa60-302e-469f-aadc-92bae02e863f" name="Changes" comment="CI badge.">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/BlobCache.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/BlobCacheTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/App.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/RemoteStorage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/RemoteStorage.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/AppTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/AppTest.kt" afterDir="false" />
-    </list>
+    <list default="true" id="4f30aa60-302e-469f-aadc-92bae02e863f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -228,7 +219,7 @@
       <option name="presentableId" value="Default" />
       <updated>1693164227428</updated>
       <workItem from="1693164228424" duration="10458000" />
-      <workItem from="1693228824589" duration="12589000" />
+      <workItem from="1693228824589" duration="12890000" />
     </task>
     <task id="LOCAL-00001" summary="Init implementation.">
       <option name="closed" value="true" />
@@ -318,7 +309,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693240849431</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="In memory cache added.">
+      <option name="closed" value="true" />
+      <created>1693250025313</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1693250025313</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -336,7 +335,8 @@
     <MESSAGE value="CI fix." />
     <MESSAGE value="Tests added." />
     <MESSAGE value="CI badge." />
-    <option name="LAST_COMMIT_MESSAGE" value="CI badge." />
+    <MESSAGE value="In memory cache added." />
+    <option name="LAST_COMMIT_MESSAGE" value="In memory cache added." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

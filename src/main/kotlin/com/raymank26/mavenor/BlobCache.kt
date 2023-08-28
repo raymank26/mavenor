@@ -33,28 +33,32 @@ class BlobCache(
 
     fun start() {
         scheduledExecutorService.scheduleWithFixedDelay({
-            cleanupLock.write {
-                if (!notEnoughSpace.get() && cacheLoad() < cacheLoadPercent) {
-                    return@scheduleWithFixedDelay
-                }
-                val sortedEntries = cache.entries.sortedBy { it.value.cacheHit }
-                var evicted = 0
-                var memoryCleanedBytes = 0L
-
-                for (entry in sortedEntries) {
-                    cache.remove(entry.key)
-                    currentSizeBytes.addAndGet(-entry.value.content.size.toLong())
-                    memoryCleanedBytes += entry.value.content.size
-                    evicted++
-                    if (cacheLoad() < cacheLoadPercent) {
-                        break
+            try {
+                cleanupLock.write {
+                    if (!notEnoughSpace.get() && cacheLoad() < cacheLoadPercent) {
+                        return@scheduleWithFixedDelay
                     }
+                    val sortedEntries = cache.entries.sortedBy { it.value.cacheHit }
+                    var evicted = 0
+                    var memoryCleanedBytes = 0L
+
+                    for (entry in sortedEntries) {
+                        cache.remove(entry.key)
+                        currentSizeBytes.addAndGet(-entry.value.content.size.toLong())
+                        memoryCleanedBytes += entry.value.content.size
+                        evicted++
+                        if (cacheLoad() < cacheLoadPercent) {
+                            break
+                        }
+                    }
+                    for (entry in cache.entries) {
+                        cache[entry.key] = entry.value.copy(cacheHit = 0)
+                    }
+                    log.info("Entries evicted = {}, memoryCleanedBytes = {}", evicted, memoryCleanedBytes)
+                    notEnoughSpace.set(false)
                 }
-                for (entry in cache.entries) {
-                    cache[entry.key] = entry.value.copy(cacheHit = 0)
-                }
-                log.info("Entries evicted = {}, memoryCleanedBytes = {}", evicted, memoryCleanedBytes)
-                notEnoughSpace.set(false)
+            } catch (e: Throwable) {
+                log.error("Unable to complete scheduled task", e)
             }
         }, cleanupIntervalSeconds, cleanupIntervalSeconds, TimeUnit.SECONDS)
     }
