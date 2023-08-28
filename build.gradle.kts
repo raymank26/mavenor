@@ -23,6 +23,7 @@ dependencies {
     testImplementation("com.squareup.okhttp3:okhttp:4.10.0")
     testImplementation("io.mockk:mockk:1.13.7")
     testImplementation(kotlin("test"))
+    testImplementation("org.awaitility:awaitility:4.2.0")
 }
 
 tasks.test {

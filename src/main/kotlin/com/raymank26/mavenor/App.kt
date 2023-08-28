@@ -10,6 +10,7 @@ private val log = LoggerFactory.getLogger(App::class.java)
 class App(private val externalDepsFactory: ExternalDepsFactory) {
 
     private lateinit var javalin: Javalin
+    private lateinit var remoteStorage: RemoteStorage
 
     companion object {
 
@@ -25,7 +26,8 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
         val gcpBucketName = readEnv(env, "GOOGLE_CLOUD_STORAGE_BUCKET_NAME")
         val username = readEnv(env, "USERNAME")
         val password = readEnv(env, "PASSWORD")
-        val remoteStorage = RemoteStorage(gcpBucketName, externalDepsFactory.gcpStorage())
+        val maxCacheSizeBytes = env["MAX_CACHE_SIZE_BYTES"]?.toLong() ?: (50 * 1024)
+        remoteStorage = RemoteStorage(gcpBucketName, externalDepsFactory.gcpStorage(), maxCacheSizeBytes)
 
         javalin = Javalin.create(/*config*/)
 //            .before {
@@ -62,6 +64,7 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
 
     fun stop() {
         javalin.stop()
+        remoteStorage.stop()
     }
 }
 

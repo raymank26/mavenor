@@ -76,6 +76,16 @@ class AppTest {
         val fileName = "/maven/com/raymank26/0.0.1/file.txt"
         val byteArray = byteArrayOf(1, 2, 3)
         every {
+            gcpStorage.get(eq(BlobId.of(bucketName, fileName)))
+        } returns mockk {
+            every {
+                etag
+            } returns "123"
+            every {
+                size
+            } returns byteArray.size.toLong()
+        }
+        every {
             gcpStorage.reader(eq(BlobId.of(bucketName, fileName)))
         } returns InMemoryStorageReadChannel.inMemoryReadChannel(byteArray)
 
@@ -99,7 +109,7 @@ class AppTest {
         // given
         val fileName = "/maven/com/raymank26/0.0.1/file.txt"
         every {
-            gcpStorage.reader(any())
+            gcpStorage.get(any<BlobId>())
         } throws IOException(StorageException(404, "Not found"))
 
         // when

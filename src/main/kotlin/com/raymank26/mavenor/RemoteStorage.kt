@@ -11,8 +11,15 @@ import java.nio.channels.Channels
 
 class RemoteStorage(
     private val bucketName: String,
-    private val gcpStorage: Storage
+    private val gcpStorage: Storage,
+    maxCacheSizeBytes: Long
 ) {
+
+    private val cache = BlobCache(maxCacheSizeBytes)
+
+    init {
+        cache.start()
+    }
 
     fun write(objectPath: String, inputStream: InputStream) {
         gcpStorage.writer(BlobInfo.newBuilder(bucketName, objectPath).build()).use {
@@ -24,16 +31,22 @@ class RemoteStorage(
 
     fun read(objectPath: String, outputStream: OutputStream) {
         try {
-            gcpStorage.reader(BlobId.of(bucketName, objectPath)).use { readChannel ->
-                outputStream.buffered().use { bufferedOs ->
-                    Channels.newInputStream(readChannel).transferTo(bufferedOs)
-                }
+            val blob = gcpStorage.get(BlobId.of(bucketName, objectPath))
+            val inputStream = cache.get(objectPath, blob.etag, blob.size) {
+                Channels.newInputStream(gcpStorage.reader(BlobId.of(bucketName, objectPath)))
+            }
+            inputStream.use {
+                inputStream.transferTo(outputStream)
             }
         } catch (e: IOException) {
             if (e.cause is StorageException) {
                 throw ObjectNotFound("Object not found", e)
             }
         }
+    }
+
+    fun stop() {
+        cache.stop()
     }
 }
 
