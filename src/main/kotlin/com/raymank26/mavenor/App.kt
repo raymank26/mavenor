@@ -37,7 +37,7 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
                 }
             }
             .exception(ObjectNotFound::class.java) { e, ctx ->
-                log.debug("Not found", e)
+                log.trace("Not found", e)
                 ctx.status(404)
             }
             .exception(NotAuthorizedException::class.java) { _, ctx ->

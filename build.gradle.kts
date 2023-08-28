@@ -1,9 +1,14 @@
 plugins {
     kotlin("jvm") version "1.9.0"
+    id("application")
 }
 
 group = "com.mavenor"
 version = "1.0-SNAPSHOT"
+
+application {
+    mainClass = "com.raymank26.mavenor.App"
+}
 
 repositories {
     mavenCentral()
@@ -24,4 +29,17 @@ tasks.test {
 
 kotlin {
     jvmToolchain(11)
+}
+
+tasks.create("dockerPrepareImage", Copy::class) {
+    dependsOn("installDist")
+    from("$buildDir/install", "Dockerfile")
+    include("*/**")
+    into("$buildDir/docker")
+}
+
+tasks.create("dockerBuildImage", Exec::class) {
+    dependsOn("dockerPrepareImage")
+    workingDir("$buildDir/docker")
+    commandLine("docker", "build", "-t", "mavenor:$version", "-t", "mavenor:latest", ".")
 }

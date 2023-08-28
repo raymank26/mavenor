@@ -9,8 +9,10 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.nio.channels.Channels
 
-@Suppress("JoinDeclarationAndAssignment")
-class RemoteStorage(private val bucketName: String, private val gcpStorage: Storage) {
+class RemoteStorage(
+    private val bucketName: String,
+    private val gcpStorage: Storage
+) {
 
     fun write(objectPath: String, inputStream: InputStream) {
         gcpStorage.writer(BlobInfo.newBuilder(bucketName, objectPath).build()).use {
