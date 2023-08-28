@@ -8,7 +8,7 @@ Use the following command to build an image:
 
 ```sh
 ./gradlew dockerBuildImage # you can optionally pass a version using -Pversion=<version>
-docker run mavenor:latest # or docker run mavenor:<version>
+docker run mavenor:latest # or docker run mavenor:<version>. Also pass env variables listed below.
 ```
 
 **Environment variables:**
