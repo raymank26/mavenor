@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f30aa60-302e-469f-aadc-92bae02e863f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/AppTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/InMemoryStorageReadChannel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/InMemoryStorageWriteChannel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/MockExternalDepsFactory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/App.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/ExternalDepsFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/ExternalDepsFactory.kt" afterDir="false" />
+    <list default="true" id="4f30aa60-302e-469f-aadc-92bae02e863f" name="Changes" comment="Tests added.">
+      <change afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +74,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Gradle.AppTest.shouldReceive404IfNotFound">
+  <component name="RunManager" selected="Gradle.mavenor [check]">
     <configuration name="AppTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -179,28 +171,26 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="AppTest.test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="mavenor [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;AppTest.test&quot;" />
+            <option value="check" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
     <list>
@@ -208,15 +198,15 @@
       <item itemvalue="Gradle.AppTest.shouldReadFromStorage" />
       <item itemvalue="Gradle.AppTest.shouldReceive404IfNotFound" />
       <item itemvalue="Gradle.AppTest.shouldWriteRequestToStorage" />
-      <item itemvalue="Gradle.AppTest.test" />
+      <item itemvalue="Gradle.mavenor [check]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.mavenor [check]" />
         <item itemvalue="Gradle.AppTest.shouldReceive404IfNotFound" />
         <item itemvalue="Gradle.AppTest" />
         <item itemvalue="Gradle.AppTest.shouldReadFromStorage" />
         <item itemvalue="Gradle.AppTest.shouldWriteRequestToStorage" />
-        <item itemvalue="Gradle.AppTest.test" />
       </list>
     </recent_temporary>
   </component>
@@ -229,7 +219,7 @@
       <option name="presentableId" value="Default" />
       <updated>1693164227428</updated>
       <workItem from="1693164228424" duration="10458000" />
-      <workItem from="1693228824589" duration="3435000" />
+      <workItem from="1693228824589" duration="3760000" />
     </task>
     <task id="LOCAL-00001" summary="Init implementation.">
       <option name="closed" value="true" />
@@ -295,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693194733925</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Tests added.">
+      <option name="closed" value="true" />
+      <created>1693240291589</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1693240291589</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,7 +308,8 @@
     <MESSAGE value="Port fixes, doc." />
     <MESSAGE value="Version ma" />
     <MESSAGE value="Version matching fix." />
-    <option name="LAST_COMMIT_MESSAGE" value="Version matching fix." />
+    <MESSAGE value="Tests added." />
+    <option name="LAST_COMMIT_MESSAGE" value="Tests added." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

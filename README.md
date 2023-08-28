@@ -1,3 +1,5 @@
+[![CI](https://github.com/raymank26/mavenor/actions/workflows/ci.yml/badge.svg)](https://github.com/raymank26/mavenor/actions/workflows/ci.yml)
+
 # About
 
 This project provides a Maven proxy for GCP Cloud Storage.
