@@ -72,35 +72,32 @@ class BlobCache(
             if (entry != null && entry.etag == etag) {
                 return@compute entry.copy(cacheHit = entry.cacheHit + 1)
             }
-            var cachedEntry: CacheEntry? = null
-            var tryLockFailed = false
-            if (canInsert(fileSizeBytes)) {
-                val lock = cleanupLock.readLock()
-                if (lock.tryLock()) {
-                    try {
-                        if (canInsert(fileSizeBytes)) {
-                            val os = ByteArrayOutputStream()
-                            loader.invoke().use {
-                                it.transferTo(os)
-                            }
-                            currentSizeBytes.addAndGet(fileSizeBytes - (entry?.content?.size?.toLong() ?: 0L))
-                            cachedEntry = CacheEntry(
-                                etag = etag,
-                                content = os.toByteArray(),
-                                cacheHit = 0,
-                            )
-                        }
-                    } finally {
-                        lock.unlock()
-                    }
-                } else {
-                    tryLockFailed = true
-                }
-            }
-            if (cachedEntry == null && !tryLockFailed) {
+            if (!canInsert(fileSizeBytes)) {
                 notEnoughSpace.set(true)
+                return@compute null
             }
-            return@compute cachedEntry
+            val lock = cleanupLock.readLock()
+            if (!lock.tryLock()) {
+                return@compute null
+            }
+            try {
+                if (!canInsert(fileSizeBytes)) {
+                    notEnoughSpace.set(true)
+                    return@compute null
+                }
+                val os = ByteArrayOutputStream()
+                loader.invoke().use {
+                    it.transferTo(os)
+                }
+                currentSizeBytes.addAndGet(fileSizeBytes - (entry?.content?.size?.toLong() ?: 0L))
+                return@compute CacheEntry(
+                    etag = etag,
+                    content = os.toByteArray(),
+                    cacheHit = 0,
+                )
+            } finally {
+                lock.unlock()
+            }
         }
         return if (cachedEntry != null) {
             ByteArrayInputStream(cachedEntry.content)
