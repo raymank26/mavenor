@@ -22,6 +22,8 @@ After the launch, the app will listen on `8080` port.
 3. `GOOGLE_CLOUD_STORAGE_BUCKET_NAME` – This variable specifies the bucket name for Google Cloud Storage.
 4. `USERNAME` – This variable is used for the Maven username.
 5. `PASSWORD` – This variable is used for the Maven password.
+6. `MAX_CACHE_SIZE_BYTES` (optional) - This variables controls a max in-memory artifact cache size. It's 50MB by
+   default.
 
 # Maven configuration
 
