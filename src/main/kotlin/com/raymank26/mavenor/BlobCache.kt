@@ -111,6 +111,8 @@ class BlobCache(
         return currentSizeBytes.get().toDouble() / maxSizeBytes
     }
 
+    fun getCacheHit(key: String): Long? = cache[key]?.cacheHit
+
     private fun canInsert(fileSizeBytes: Long) = currentSizeBytes.get() + fileSizeBytes <= maxSizeBytes
 }
 

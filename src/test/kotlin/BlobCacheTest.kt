@@ -58,5 +58,25 @@ class BlobCacheTest {
         }
     }
 
+    @Test
+    fun shouldIncrementCacheHit() {
+        // given
+        val blobCache = BlobCache(maxSizeBytes = 50, cacheLoadPercent = 70, cleanupIntervalSeconds = 1)
+        blobCache.start()
+
+        // when
+        val runnable = {
+            blobCache.get("foo", "123", 45) {
+                byteArrayInputStream(45)
+            }
+        }
+        runnable.invoke() // inserts
+        runnable.invoke() // cache hit
+        runnable.invoke() // cache hit
+
+        // then
+        assertEquals(2, blobCache.getCacheHit("foo"))
+    }
+
     private fun byteArrayInputStream(size: Int) = ByteArrayInputStream(Array(size) { 0.toByte() }.toByteArray())
 }

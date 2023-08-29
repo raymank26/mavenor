@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f30aa60-302e-469f-aadc-92bae02e863f" name="Changes" comment="" />
+    <list default="true" id="4f30aa60-302e-469f-aadc-92bae02e863f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/BlobCache.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/raymank26/mavenor/BlobCache.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/BlobCacheTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/BlobCacheTest.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,30 +77,6 @@
   }
 }</component>
   <component name="RunManager" selected="Gradle.BlobCacheTest">
-    <configuration name="AppTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;AppTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
     <configuration name="BlobCacheTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -135,6 +115,30 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;BlobCacheTest.shouldCleanupData&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="BlobCacheTest.shouldIncrementCacheHit" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;BlobCacheTest.shouldIncrementCacheHit&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -194,19 +198,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.AppTest" />
       <item itemvalue="Gradle.BlobCacheTest" />
       <item itemvalue="Gradle.BlobCacheTest.shouldCleanupData" />
+      <item itemvalue="Gradle.BlobCacheTest.shouldIncrementCacheHit" />
       <item itemvalue="Gradle.BlobCacheTest.shouldNotCleanupDataIfNotNeeded" />
       <item itemvalue="Gradle.BlobCacheTest.shouldNotInsertValueExceed" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.BlobCacheTest" />
+        <item itemvalue="Gradle.BlobCacheTest.shouldIncrementCacheHit" />
         <item itemvalue="Gradle.BlobCacheTest.shouldNotCleanupDataIfNotNeeded" />
         <item itemvalue="Gradle.BlobCacheTest.shouldCleanupData" />
         <item itemvalue="Gradle.BlobCacheTest.shouldNotInsertValueExceed" />
-        <item itemvalue="Gradle.AppTest" />
       </list>
     </recent_temporary>
   </component>
@@ -219,7 +223,7 @@
       <option name="presentableId" value="Default" />
       <updated>1693164227428</updated>
       <workItem from="1693164228424" duration="10458000" />
-      <workItem from="1693228824589" duration="13588000" />
+      <workItem from="1693228824589" duration="15235000" />
     </task>
     <task id="LOCAL-00001" summary="Init implementation.">
       <option name="closed" value="true" />
@@ -325,7 +329,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693250186746</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Cache README.md.">
+      <option name="closed" value="true" />
+      <created>1693284762422</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1693284762422</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -345,7 +357,8 @@
     <MESSAGE value="CI badge." />
     <MESSAGE value="In memory cache added." />
     <MESSAGE value="Catch fix." />
-    <option name="LAST_COMMIT_MESSAGE" value="Catch fix." />
+    <MESSAGE value="Cache README.md." />
+    <option name="LAST_COMMIT_MESSAGE" value="Cache README.md." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
