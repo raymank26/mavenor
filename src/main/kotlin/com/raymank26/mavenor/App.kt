@@ -26,7 +26,7 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
         val gcpBucketName = readEnv(env, "GOOGLE_CLOUD_STORAGE_BUCKET_NAME")
         val username = readEnv(env, "USERNAME")
         val password = readEnv(env, "PASSWORD")
-        val maxCacheSizeBytes = env["MAX_CACHE_SIZE_BYTES"]?.toLong() ?: (50 * 1024)
+        val maxCacheSizeBytes = env["MAX_CACHE_SIZE_BYTES"]?.toLong() ?: (50 * 1024 * 1024)
         remoteStorage = RemoteStorage(gcpBucketName, externalDepsFactory.gcpStorage(), maxCacheSizeBytes)
 
         javalin = Javalin.create(/*config*/)
