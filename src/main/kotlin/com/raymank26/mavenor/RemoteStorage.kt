@@ -32,6 +32,7 @@ class RemoteStorage(
     fun read(objectPath: String, outputStream: OutputStream) {
         try {
             val blob = gcpStorage.get(BlobId.of(bucketName, objectPath))
+                ?: throw ObjectNotFound("Object not found")
             val inputStream = cache.get(objectPath, blob.etag, blob.size) {
                 Channels.newInputStream(gcpStorage.reader(BlobId.of(bucketName, objectPath)))
             }
@@ -50,4 +51,5 @@ class RemoteStorage(
     }
 }
 
-class ObjectNotFound(msg: String, e: Exception) : Exception(msg, e)
+class ObjectNotFound(msg: String, e: Exception? = null) : Exception(msg, e) {
+}
