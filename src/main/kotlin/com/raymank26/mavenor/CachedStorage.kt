@@ -1,17 +1,12 @@
 package com.raymank26.mavenor
 
-import com.google.cloud.storage.BlobId
-import com.google.cloud.storage.BlobInfo
-import com.google.cloud.storage.Storage
 import com.google.cloud.storage.StorageException
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import java.nio.channels.Channels
 
-class CompositeStorage(
-    private val bucketName: String,
-    private val gcpStorage: Storage,
+class CachedStorage(
+    private val storage: Storage,
     maxCacheSizeBytes: Long
 ) {
 
@@ -21,20 +16,16 @@ class CompositeStorage(
         cache.start()
     }
 
-    fun write(objectPath: String, inputStream: InputStream) {
-        gcpStorage.writer(BlobInfo.newBuilder(bucketName, objectPath).build()).use {
-            Channels.newOutputStream(it).buffered().use { bufferedOs ->
-                inputStream.transferTo(bufferedOs)
-            }
-        }
+    fun write(objectPath: String, inputStream: InputStream, contentLength: Long) {
+        storage.write(objectPath, inputStream, contentLength)
     }
 
     fun read(objectPath: String, outputStream: OutputStream) {
         try {
-            val blob = gcpStorage.get(BlobId.of(bucketName, objectPath))
+            val blob = storage.getBlobInfo(objectPath)
                 ?: throw ObjectNotFound("Object not found")
             val inputStream = cache.get(objectPath, blob.etag, blob.size) {
-                Channels.newInputStream(gcpStorage.reader(BlobId.of(bucketName, objectPath)))
+                storage.read(objectPath)
             }
             inputStream.use {
                 inputStream.transferTo(outputStream)
@@ -51,5 +42,4 @@ class CompositeStorage(
     }
 }
 
-class ObjectNotFound(msg: String, e: Exception? = null) : Exception(msg, e) {
-}
+class ObjectNotFound(msg: String, e: Exception? = null) : Exception(msg, e)

@@ -10,7 +10,7 @@ private val log = LoggerFactory.getLogger(App::class.java)
 class App(private val externalDepsFactory: ExternalDepsFactory) {
 
     private lateinit var javalin: Javalin
-    private lateinit var compositeStorage: CompositeStorage
+    private lateinit var cachedStorage: CachedStorage
 
     companion object {
 
@@ -23,17 +23,19 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
     fun start() {
         val env = externalDepsFactory.getEnv()
         loadEnvGCloudData(env)
-        val gcpBucketName = readEnv(env, "GOOGLE_CLOUD_STORAGE_BUCKET_NAME")
+        val gcpBucketName = env["GOOGLE_CLOUD_STORAGE_BUCKET_NAME"]
+        val s3BucketName = env["S3_STORAGE_BUCKET_NAME"]
         val username = readEnv(env, "USERNAME")
         val password = readEnv(env, "PASSWORD")
         val maxCacheSizeBytes = env["MAX_CACHE_SIZE_BYTES"]?.toLong() ?: (50 * 1024 * 1024)
-        compositeStorage = CompositeStorage(gcpBucketName, externalDepsFactory.gcpStorage(), maxCacheSizeBytes)
+        val storage = if (s3BucketName == null) {
+            GcpStorage(gcpBucketName!!, externalDepsFactory.gcpStorageClient())
+        } else {
+            AwsStorage(externalDepsFactory.awsStorageClient(), s3BucketName)
+        }
+        cachedStorage = CachedStorage(storage, maxCacheSizeBytes)
 
         javalin = Javalin.create(/*config*/)
-//            .before {
-//                log.info(it.headerMap().toString())
-//                log.info("{} - {}", it.method(), it.path())
-//            }
             .before { ctx ->
                 val basicAuthCredentials = ctx.basicAuthCredentials() ?: throw NotAuthorizedException()
                 if (basicAuthCredentials.username != username || basicAuthCredentials.password != password) {
@@ -50,10 +52,11 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
             }
             .put("maven/*") { ctx ->
                 val bodyInputStream = ctx.bodyInputStream()
-                compositeStorage.write(ctx.path(), bodyInputStream)
+                val contentLength = ctx.contentLength()
+                cachedStorage.write(ctx.path(), bodyInputStream, contentLength.toLong())
             }
             .get("maven/*") { ctx ->
-                compositeStorage.read(ctx.path(), ctx.outputStream())
+                cachedStorage.read(ctx.path(), ctx.outputStream())
                 ctx.outputStream().close()
             }
             .get("/healthcheck") {
@@ -64,7 +67,7 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
 
     fun stop() {
         javalin.stop()
-        compositeStorage.stop()
+        cachedStorage.stop()
     }
 }
 

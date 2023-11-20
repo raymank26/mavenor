@@ -13,12 +13,14 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import software.amazon.awssdk.services.s3.S3Client
 import java.io.IOException
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 
 class AppTest {
     private val gcpStorage: Storage = mockk()
+    private val s3Client: S3Client = mockk()
     private val bucketName = "foo"
     private val basicAuthUsername = "abc"
     private val basicAuthPassword = "355"
@@ -28,7 +30,7 @@ class AppTest {
         put("USERNAME", basicAuthUsername)
         put("PASSWORD", basicAuthPassword)
     }
-    private val app = App(MockExternalDepsFactory(gcpStorage, env))
+    private val app = App(MockExternalDepsFactory(gcpStorage, s3Client, env))
     private val okHttpClient = OkHttpClient().newBuilder()
         .authenticator { _, response ->
             val credentials = Credentials.basic(basicAuthUsername, basicAuthPassword)
