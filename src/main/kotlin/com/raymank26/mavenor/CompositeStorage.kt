@@ -9,7 +9,7 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.nio.channels.Channels
 
-class RemoteStorage(
+class CompositeStorage(
     private val bucketName: String,
     private val gcpStorage: Storage,
     maxCacheSizeBytes: Long

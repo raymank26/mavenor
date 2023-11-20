@@ -10,7 +10,7 @@ private val log = LoggerFactory.getLogger(App::class.java)
 class App(private val externalDepsFactory: ExternalDepsFactory) {
 
     private lateinit var javalin: Javalin
-    private lateinit var remoteStorage: RemoteStorage
+    private lateinit var compositeStorage: CompositeStorage
 
     companion object {
 
@@ -27,7 +27,7 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
         val username = readEnv(env, "USERNAME")
         val password = readEnv(env, "PASSWORD")
         val maxCacheSizeBytes = env["MAX_CACHE_SIZE_BYTES"]?.toLong() ?: (50 * 1024 * 1024)
-        remoteStorage = RemoteStorage(gcpBucketName, externalDepsFactory.gcpStorage(), maxCacheSizeBytes)
+        compositeStorage = CompositeStorage(gcpBucketName, externalDepsFactory.gcpStorage(), maxCacheSizeBytes)
 
         javalin = Javalin.create(/*config*/)
 //            .before {
@@ -50,10 +50,10 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
             }
             .put("maven/*") { ctx ->
                 val bodyInputStream = ctx.bodyInputStream()
-                remoteStorage.write(ctx.path(), bodyInputStream)
+                compositeStorage.write(ctx.path(), bodyInputStream)
             }
             .get("maven/*") { ctx ->
-                remoteStorage.read(ctx.path(), ctx.outputStream())
+                compositeStorage.read(ctx.path(), ctx.outputStream())
                 ctx.outputStream().close()
             }
             .get("/healthcheck") {
@@ -64,7 +64,7 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
 
     fun stop() {
         javalin.stop()
-        remoteStorage.stop()
+        compositeStorage.stop()
     }
 }
 
