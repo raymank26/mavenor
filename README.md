@@ -2,7 +2,7 @@
 
 # About
 
-This project provides a Maven proxy for GCP Cloud Storage.
+This project provides a Maven proxy for GCP Cloud Storage or Amazon S3 compatible storage.
 
 # Run
 

@@ -24,13 +24,13 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
         val env = externalDepsFactory.getEnv()
         loadEnvGCloudData(env)
         val gcpBucketName = env["GOOGLE_CLOUD_STORAGE_BUCKET_NAME"]
-        val s3BucketName = env["S3_STORAGE_BUCKET_NAME"]
         val username = readEnv(env, "USERNAME")
         val password = readEnv(env, "PASSWORD")
         val maxCacheSizeBytes = env["MAX_CACHE_SIZE_BYTES"]?.toLong() ?: (50 * 1024 * 1024)
-        val storage = if (s3BucketName == null) {
-            GcpStorage(gcpBucketName!!, externalDepsFactory.gcpStorageClient())
+        val storage = if (gcpBucketName != null) {
+            GcpStorage(gcpBucketName, externalDepsFactory.gcpStorageClient())
         } else {
+            val s3BucketName = readEnv(env, "S3_STORAGE_BUCKET_NAME")
             AwsStorage(externalDepsFactory.awsStorageClient(), s3BucketName)
         }
         cachedStorage = CachedStorage(storage, maxCacheSizeBytes)
