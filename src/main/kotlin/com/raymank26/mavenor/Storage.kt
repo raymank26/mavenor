@@ -12,6 +12,6 @@ interface Storage {
 }
 
 data class BlobInfo(
-    val etag: String,
+    val etag: String?,
     val size: Long
 )
