@@ -35,6 +35,8 @@ class AwsStorage(
         return try {
             val response = s3Client.getObjectAttributes(
                 GetObjectAttributesRequest.builder()
+                    .bucket(bucketName)
+                    .key(objectPath)
                     .build()
             )
             BlobInfo(response.eTag(), response.objectSize())

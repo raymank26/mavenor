@@ -15,6 +15,7 @@ open class ExternalDepsFactory {
 
     open fun awsStorageClient(env: Map<String, String>): S3Client {
         return S3Client.builder()
+            .forcePathStyle(false)
             .region(Region.of(env["AWS_REGION"]))
             .endpointOverride(URI(env["AWS_ENDPOINT_URL"]!!))
             .credentialsProvider {
