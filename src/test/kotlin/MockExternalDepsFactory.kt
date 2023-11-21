@@ -12,7 +12,7 @@ class MockExternalDepsFactory(
         return gcpStorage
     }
 
-    override fun awsStorageClient(): S3Client {
+    override fun awsStorageClient(env: Map<String, String>): S3Client {
         return s3Client;
     }
 

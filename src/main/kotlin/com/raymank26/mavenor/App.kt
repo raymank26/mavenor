@@ -31,7 +31,7 @@ class App(private val externalDepsFactory: ExternalDepsFactory) {
             GcpStorage(gcpBucketName, externalDepsFactory.gcpStorageClient())
         } else {
             val s3BucketName = readEnv(env, "S3_STORAGE_BUCKET_NAME")
-            AwsStorage(externalDepsFactory.awsStorageClient(), s3BucketName)
+            AwsStorage(externalDepsFactory.awsStorageClient(env), s3BucketName)
         }
         cachedStorage = CachedStorage(storage, maxCacheSizeBytes)
 
