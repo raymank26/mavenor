@@ -39,7 +39,10 @@ class AwsStorage(
                     .key(objectPath)
                     .build()
             )
-            BlobInfo(response.eTag(), response.objectSize())
+            if (response.eTag() == null || response.objectSize() == null) {
+                return null
+            }
+            return BlobInfo(response.eTag(), response.objectSize())
         } catch (e: NoSuchKeyException) {
             null
         }

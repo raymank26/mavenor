@@ -67,10 +67,7 @@ class BlobCache(
         scheduledExecutorService.shutdown()
     }
 
-    fun get(key: String, etag: String?, fileSizeBytes: Long, loader: () -> InputStream): InputStream {
-        if (etag == null) {
-            return loader.invoke()
-        }
+    fun get(key: String, etag: String, fileSizeBytes: Long, loader: () -> InputStream): InputStream {
         val cachedEntry = cache.compute(key) { _, entry ->
             if (entry != null && entry.etag == etag) {
                 return@compute entry.copy(cacheHit = entry.cacheHit + 1)
