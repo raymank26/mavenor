@@ -2,8 +2,8 @@ package com.raymank26.mavenor
 
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.services.s3.S3Client
-import software.amazon.awssdk.services.s3.model.GetObjectAttributesRequest
 import software.amazon.awssdk.services.s3.model.GetObjectRequest
+import software.amazon.awssdk.services.s3.model.HeadObjectRequest
 import software.amazon.awssdk.services.s3.model.NoSuchKeyException
 import software.amazon.awssdk.services.s3.model.PutObjectRequest
 import java.io.InputStream
@@ -33,16 +33,13 @@ class AwsStorage(
 
     override fun getBlobInfo(objectPath: String): BlobInfo? {
         return try {
-            val response = s3Client.getObjectAttributes(
-                GetObjectAttributesRequest.builder()
+            val obj = s3Client.headObject(
+                HeadObjectRequest.builder()
                     .bucket(bucketName)
                     .key(objectPath)
                     .build()
             )
-            if (response.eTag() == null || response.objectSize() == null) {
-                return null
-            }
-            return BlobInfo(response.eTag(), response.objectSize())
+            return BlobInfo(obj.eTag(), obj.contentLength())
         } catch (e: NoSuchKeyException) {
             null
         }
